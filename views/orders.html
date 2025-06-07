@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Orders - Tanfel Hotel</title>
+</head>
+<body>
+  <h1>My Orders</h1>
+  <% if (orders.length === 0) { %>
+    <p>No orders found.</p>
+  <% } else { %>
+    <ul>
+      <% orders.forEach(order => { %>
+        <li>
+          <p>Receipt #: <%= order.mpesaReceiptNumber %></p>
+          <p>Amount: KES <%= order.amount %></p>
+          <p>Date: <%= order.transactionDate %></p>
+          <a href="/receipt/<%= order._id %>">View Receipt</a>
+        </li>
+        <hr>
+      <% }) %>
+    </ul>
+
+    <% if (totalPages > 1) { %>
+      <nav>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <a href="/orders?page=<%= i %>"><%= i %></a>
+        <% } %>
+      </nav>
+    <% } %>
+  <% } %>
+
+  <br><a href="/menu">Back to Menu</a>
+</body>
+  </html>
