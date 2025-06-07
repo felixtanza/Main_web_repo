@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Receipt - Tanfel Hotel</title>
+</head>
+<body>
+  <h1>Order Receipt</h1>
+  <p><strong>Receipt Number:</strong> <%= transaction.mpesaReceiptNumber %></p>
+  <p><strong>Phone:</strong> <%= transaction.phone %></p>
+  <p><strong>Total:</strong> KES <%= transaction.amount %></p>
+  <p><strong>Date:</strong> <%= transaction.transactionDate %></p>
+  <p><strong>Items:</strong> <%= JSON.stringify(transaction.cart) %></p>
+  <a href="/orders">Back to Orders</a>
+</body>
+</html>
