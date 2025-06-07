@@ -14,7 +14,7 @@ const Transaction = require('./models/Transaction');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware setup
+// ==================== MIDDLEWARE ==================== //
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -24,12 +24,12 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-// View engine setup
+// ==================== VIEW ENGINE ==================== //
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-// MongoDB connection
+// ==================== DB CONNECTION ==================== //
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -41,15 +41,24 @@ mongoose.connect(process.env.MONGO_URI, {
 // Landing Page
 app.get('/', (req, res) => {
   if (req.session.userId) return res.redirect('/menu');
-  res.render('index');
+  res.render('index', { error: null });
 });
 
 // Register Page
-app.get('/register', (req, res) => res.render('register'));
+app.get('/register', (req, res) => res.render('register', { error: null }));
 
 // Handle User Registration
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.render('register', { error: 'All fields are required' });
+  }
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return res.render('register', { error: 'Email already exists' });
+  }
+
   const hashed = await bcrypt.hash(password, 10);
   const user = new User({ name, email, password: hashed });
   await user.save();
@@ -59,12 +68,17 @@ app.post('/register', async (req, res) => {
 // Handle Login
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password) {
+    return res.render('index', { error: 'Both email and password are required' });
+  }
+
   const user = await User.findOne({ email });
   if (user && await bcrypt.compare(password, user.password)) {
     req.session.userId = user._id;
     return res.redirect('/menu');
   }
-  res.send('Login failed');
+
+  res.render('index', { error: 'Invalid email or password' });
 });
 
 // Menu Page
@@ -76,13 +90,18 @@ app.get('/menu', (req, res) => {
 // Checkout Page
 app.get('/checkout', (req, res) => {
   if (!req.session.userId) return res.redirect('/');
-  res.render('checkout');
+  res.render('checkout', { error: null });
 });
 
 // ==================== PAYMENT ==================== //
 
 app.post('/pay', async (req, res) => {
   const { phone, cart, total } = req.body;
+
+  if (!phone || !cart || !total) {
+    return res.render('checkout', { error: 'All fields are required' });
+  }
+
   req.session.pendingOrder = { phone, cart, total };
 
   try {
@@ -124,7 +143,7 @@ app.post('/pay', async (req, res) => {
 
   } catch (err) {
     console.error('❌ Payment error:', err.message);
-    res.redirect('/error');
+    res.render('checkout', { error: 'Payment initiation failed. Try again.' });
   }
 });
 
@@ -152,7 +171,6 @@ app.post('/mpesa/callback', async (req, res) => {
 
     await transaction.save();
 
-    // Send email notification
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -180,7 +198,7 @@ app.post('/mpesa/callback', async (req, res) => {
   res.sendStatus(200);
 });
 
-// ==================== ORDERS & RECEIPTS ==================== //
+// ==================== ORDERS ==================== //
 
 app.get('/orders', async (req, res) => {
   if (!req.session.userId) return res.redirect('/');
@@ -198,24 +216,25 @@ app.get('/orders', async (req, res) => {
   res.render('orders', { orders, page, totalPages });
 });
 
+// Receipt Page
 app.get('/receipt/:id', async (req, res) => {
   const transaction = await Transaction.findOne({
     _id: req.params.id,
     user: req.session.userId,
   });
 
-  if (!transaction) return res.send('No receipt found');
+  if (!transaction) return res.render('error', { error: 'Receipt not found' });
   res.render('receipt', { transaction });
 });
 
-// ==================== MISC ROUTES ==================== //
+// ==================== MISC ==================== //
 
 app.get('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/'));
 });
 
 app.get('/success', (req, res) => res.render('success'));
-app.get('/error', (req, res) => res.render('error'));
+app.get('/error', (req, res) => res.render('error', { error: 'Something went wrong' }));
 
 // ==================== START SERVER ==================== //
 
