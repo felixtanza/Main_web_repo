@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Menu - Tanfel Hotel</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tanfel Hotel - Menu</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <h1>Welcome to Tanfel Menu</h1>
-  <div id="menu-list">
-    <!-- Menu will be rendered here by JavaScript -->
+  <!-- Loader -->
+  <div id="loader" class="loader hidden"></div>
+
+  <!-- Page Wrapper -->
+  <div id="pageWrapper" class="page-transition">
+    <header>
+      <h1>Menu</h1>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+      <!-- Dark mode toggle -->
+      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <main>
+      <!-- Menu Items Container -->
+      <section id="menuItems" class="menu-items">
+        <!-- Menu items will be dynamically rendered here -->
+      </section>
+
+      <!-- Cart Summary -->
+      <aside id="cart" class="cart-container">
+        <h2>Your Cart</h2>
+        <ul id="cartItems" class="cart-items">
+          <!-- Cart items will be dynamically added here -->
+        </ul>
+        <p id="cartTotal" class="cart-total">Total: KES 0</p>
+        <a href="/checkout" id="checkoutBtn" class="btn-checkout disabled" aria-disabled="true">Proceed to Checkout</a>
+      </aside>
+    </main>
   </div>
-  <a href="/checkout">Proceed to Checkout</a>
-  <br><br>
-  <a href="/orders">View My Orders</a> |
-  <a href="/logout">Logout</a>
+
+  <script src="/js/script.js"></script>
 </body>
-    </html>
+</html>
