@@ -4,35 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tanfel Hotel - Register</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
+<body  style="background-color: wheat;text-align: center;">
   <!-- Loader -->
   <div id="loader" class="loader hidden"></div>
 
   <!-- Page Wrapper -->
   <div id="pageWrapper" class="page-transition">
     <header>
-      <h1>Create your account</h1>
+      <h1 style="font-style: boulder;text-align: center;text-decoration: underline;color: gold;text-shadow: 0 0 15px gold; background-color: blue;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;">Create your account</h1>
     </header>
 
     <main>
-      <form id="registerForm" action="/register" method="POST" autocomplete="off">
-        <h2>Register</h2>
+      <form style="background-color: skyblue;height: 400px;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;" id="registerForm" action="/register" method="POST" autocomplete="off">
+        <h2  style="background-color:gold;border-top-right-radius: 40px;border-top-left-radius: 5px;">Register</h2>
 
         <div class="form-group">
           <label for="nameInput">Name</label>
-          <input id="nameInput" name="name" type="text" placeholder="Your full name" required />
-        </div>
+          <input style="box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;padding: 20px;" id="nameInput" name="name" type="text" placeholder="Your full name" required />
+        </div><br>
+        
 
         <div class="form-group">
           <label for="emailInput">Email</label>
-          <input id="emailInput" name="email" type="email" placeholder="you@example.com" required />
+          <input style="box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;padding: 20px;" id="emailInput" name="email" type="email" placeholder="you@example.com" required />
         </div>
+        <br>
 
         <div class="form-group">
           <label for="passwordInput">Password</label>
-          <input id="passwordInput" name="password" type="password" placeholder="Choose a strong password" required />
+          <input style="box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;padding: 20px;" id="passwordInput" name="password" type="password" placeholder="Choose a strong password" required />
         </div>
 
         <!-- Error message -->
@@ -42,7 +44,7 @@
           <% } %>
         </div>
 
-        <button id="registerBtn" type="submit">Register</button>
+        <button style="background-color: blue;padding: 15px;width: 90px;text-shadow: 0 0 15px green;border: none;border-radius: 40px;color: white;box-shadow: 0 0 15px black;" id="registerBtn" type="submit">Register</button>
       </form>
 
       <p>
@@ -50,10 +52,10 @@
       </p>
 
       <!-- Dark mode toggle -->
-      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+      <button style="right: 40px; background-color: gold;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
     </main>
   </div>
 
   <script src="script.js"></script>
 </body>
-            </html>
+</html>
