@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Receipt - Tanfel Hotel</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
-  <h1>Order Receipt</h1>
-  <p><strong>Receipt Number:</strong> <%= transaction.mpesaReceiptNumber %></p>
-  <p><strong>Phone:</strong> <%= transaction.phone %></p>
-  <p><strong>Total:</strong> KES <%= transaction.amount %></p>
-  <p><strong>Date:</strong> <%= transaction.transactionDate %></p>
-  <p><strong>Items:</strong> <%= JSON.stringify(transaction.cart) %></p>
-  <a href="/orders">Back to Orders</a>
+<body id="body" class="light-mode">
+  <!-- Loader -->
+  <div id="page-loader" class="loader hidden"></div>
+
+  <!-- Header with Dark Mode Toggle -->
+  <header>
+    <h1>Tanfel Hotel - Receipt</h1>
+    <button id="dark-toggle" aria-label="Toggle dark mode">🌓</button>
+  </header>
+
+  <main id="receipt-details">
+    <h2>Receipt Details</h2>
+    <p><strong>Order ID:</strong> <%= transaction._id %></p>
+    <p><strong>Phone:</strong> <%= transaction.phone %></p>
+    <p><strong>Amount:</strong> KES <%= transaction.amount %></p>
+    <p><strong>Date:</strong> <%= new Date(transaction.transactionDate).toLocaleString() %></p>
+    <p><strong>Mpesa Receipt:</strong> <%= transaction.mpesaReceiptNumber %></p>
+
+    <h3>Order Items:</h3>
+    <pre><%= JSON.stringify(transaction.cart, null, 2) %></pre>
+  </main>
+
+  <script src="/js/main.js"></script>
 </body>
 </html>
