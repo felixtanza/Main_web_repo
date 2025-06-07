@@ -13,27 +13,27 @@
   <!-- Page Wrapper -->
   <div id="pageWrapper" class="page-transition">
     <header>
-      <h1>Menu</h1>
-      <button id="logoutBtn" class="btn-logout">Logout</button>
-      <!-- Dark mode toggle -->
+      <h1>Tanfel Hotel Menu</h1>
       <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+      <button id="goToCheckoutBtn" class="btn-checkout">Checkout</button>
     </header>
 
     <main>
-      <!-- Menu Items Container -->
-      <section id="menuItems" class="menu-items">
-        <!-- Menu items will be dynamically rendered here -->
+      <section id="menuList" class="menu-list">
+        <!-- Menu items will be dynamically rendered here by JS -->
       </section>
 
-      <!-- Cart Summary -->
-      <aside id="cart" class="cart-container">
+      <section id="cart" class="cart-section">
         <h2>Your Cart</h2>
         <ul id="cartItems" class="cart-items">
-          <!-- Cart items will be dynamically added here -->
+          <!-- Cart items populated dynamically -->
         </ul>
-        <p id="cartTotal" class="cart-total">Total: KES 0</p>
-        <a href="/checkout" id="checkoutBtn" class="btn-checkout disabled" aria-disabled="true">Proceed to Checkout</a>
-      </aside>
+        <div id="cartTotal" class="cart-total">
+          Total: KES <span id="totalAmount">0</span>
+        </div>
+        <button id="clearCartBtn" class="btn-clear-cart">Clear Cart</button>
+      </section>
     </main>
   </div>
 
