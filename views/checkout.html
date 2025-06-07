@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - Tanfel Hotel</title>
+</head>
+<body>
+  <h1>Checkout</h1>
+  <form method="POST" action="/pay">
+    <input name="phone" type="tel" placeholder="Phone Number" required />
+    <input name="total" type="number" placeholder="Total Amount" id="total" required readonly />
+    <textarea name="cart" id="cart" hidden></textarea>
+    <button type="submit">Pay with M-Pesa</button>
+  </form>
+  <a href="/menu">Back to Menu</a>
+</body>
+</html>
