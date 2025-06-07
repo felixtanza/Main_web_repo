@@ -1,17 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tanfel Hotel - Register</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Create Account</h1>
-  <form method="POST" action="/register">
-    <input name="name" type="text" placeholder="Full Name" required />
-    <input name="email" type="email" placeholder="Email" required />
-    <input name="password" type="password" placeholder="Password" required />
-    <button type="submit">Register</button>
-  </form>
-  <p>Already have an account? <a href="/">Login here</a></p>
+  <!-- Loader -->
+  <div id="loader" class="loader hidden"></div>
+
+  <!-- Page Wrapper -->
+  <div id="pageWrapper" class="page-transition">
+    <header>
+      <h1>Create your account</h1>
+    </header>
+
+    <main>
+      <form id="registerForm" action="/register" method="POST" autocomplete="off">
+        <h2>Register</h2>
+
+        <div class="form-group">
+          <label for="nameInput">Name</label>
+          <input id="nameInput" name="name" type="text" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="emailInput">Email</label>
+          <input id="emailInput" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="passwordInput">Password</label>
+          <input id="passwordInput" name="password" type="password" placeholder="Choose a strong password" required />
+        </div>
+
+        <!-- Error message -->
+        <div id="registerError" class="error-message">
+          <% if (error) { %>
+            <p><%= error %></p>
+          <% } %>
+        </div>
+
+        <button id="registerBtn" type="submit">Register</button>
+      </form>
+
+      <p>
+        Already have an account? <a href="/">Login here</a>
+      </p>
+
+      <!-- Dark mode toggle -->
+      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-</html>
+            </html>
