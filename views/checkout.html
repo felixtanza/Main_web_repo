@@ -1,17 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Checkout - Tanfel Hotel</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tanfel Hotel - Checkout</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Checkout</h1>
-  <form method="POST" action="/pay">
-    <input name="phone" type="tel" placeholder="Phone Number" required />
-    <input name="total" type="number" placeholder="Total Amount" id="total" required readonly />
-    <textarea name="cart" id="cart" hidden></textarea>
-    <button type="submit">Pay with M-Pesa</button>
-  </form>
-  <a href="/menu">Back to Menu</a>
+  <!-- Loader -->
+  <div id="loader" class="loader hidden"></div>
+
+  <!-- Page Wrapper -->
+  <div id="pageWrapper" class="page-transition">
+    <header>
+      <h1>Checkout</h1>
+      <button id="backToMenuBtn" class="btn-back">Back to Menu</button>
+      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <main>
+      <form id="checkoutForm" action="/pay" method="POST" novalidate>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="+254712345678"
+            required
+            pattern="^\+2547\d{8}$"
+            autocomplete="tel"
+          />
+          <span id="phoneError" class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="cartSummary">Order Summary</label>
+          <textarea
+            id="cartSummary"
+            name="cart"
+            readonly
+            rows="6"
+            aria-label="Summary of selected items"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="totalAmount">Total Amount (KES)</label>
+          <input
+            type="number"
+            id="totalAmount"
+            name="total"
+            readonly
+            aria-readonly="true"
+          />
+        </div>
+
+        <button type="submit" id="payBtn" class="btn-pay">Pay Now</button>
+      </form>
+
+      <!-- Error message display -->
+      <% if (error) { %>
+      <div id="formError" class="form-error" role="alert"><%= error %></div>
+      <% } %>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-</html>
+        </html>
