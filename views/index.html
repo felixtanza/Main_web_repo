@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tanfel Hotel - Login</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <h1>Login</h1>
-  <form method="POST" action="/login">
-    <input name="email" type="email" placeholder="Email" required />
-    <input name="password" type="password" placeholder="Password" required />
-    <button style="background-color: blue; padding:20px; border:none;box-shadow:0 0 15px black;" type="submit">Login</button>
-  </form>
-  <p>Don't have an account? <a href="/register">Register here</a></p>
+  <!-- Loader -->
+  <div id="loader" class="loader hidden"></div>
+
+  <!-- Page Wrapper for transition effects -->
+  <div id="pageWrapper" class="page-transition">
+    <header>
+      <h1>Welcome to Tanfel Hotel</h1>
+    </header>
+
+    <main>
+      <form id="loginForm" action="/login" method="POST" autocomplete="off">
+        <h2>Login</h2>
+        <div class="form-group">
+          <label for="emailInput">Email</label>
+          <input id="emailInput" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="passwordInput">Password</label>
+          <input id="passwordInput" name="password" type="password" placeholder="Your password" required />
+        </div>
+
+        <!-- Error message container -->
+        <div id="loginError" class="error-message">
+          <% if (error) { %>
+            <p><%= error %></p>
+          <% } %>
+        </div>
+
+        <button id="loginBtn" type="submit">Login</button>
+      </form>
+
+      <p>
+        Don't have an account? <a href="/register">Register here</a>
+      </p>
+
+      <!-- Dark mode toggle -->
+      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+    </main>
+  </div>
+
+  <script src="/js/script.js"></script>
 </body>
-</html>
+  </html>
