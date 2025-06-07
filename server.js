@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -18,10 +19,21 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Secure session with MongoDB store
 app.use(session({
-  secret: 'tanfel_secret',
+  secret: process.env.SESSION_SECRET || 'tanfel_secret',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    collectionName: 'sessions'
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    httpOnly: true,
+    secure: false // set to true in production with HTTPS
+  }
 }));
 
 // ==================== VIEW ENGINE ==================== //
@@ -34,7 +46,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log('✅ MongoDB connected'))
-  .catch(err => console.log('❌ MongoDB error:', err));
+  .catch(err => console.error('❌ MongoDB error:', err));
 
 // ==================== ROUTES ==================== //
 
@@ -47,7 +59,7 @@ app.get('/', (req, res) => {
 // Register Page
 app.get('/register', (req, res) => res.render('register', { error: null }));
 
-// Handle User Registration
+// Register User
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
@@ -59,13 +71,13 @@ app.post('/register', async (req, res) => {
     return res.render('register', { error: 'Email already exists' });
   }
 
-  const hashed = await bcrypt.hash(password, 10);
-  const user = new User({ name, email, password: hashed });
-  await user.save();
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = new User({ name, email, password: hashedPassword });
+  await newUser.save();
   res.redirect('/');
 });
 
-// Handle Login
+// Login User
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -93,11 +105,9 @@ app.get('/checkout', (req, res) => {
   res.render('checkout', { error: null });
 });
 
-// ==================== PAYMENT ==================== //
-
+// ==================== PAYMENT (M-PESA STK) ==================== //
 app.post('/pay', async (req, res) => {
   const { phone, cart, total } = req.body;
-
   if (!phone || !cart || !total) {
     return res.render('checkout', { error: 'All fields are required' });
   }
@@ -140,7 +150,6 @@ app.post('/pay', async (req, res) => {
     );
 
     res.redirect('/success');
-
   } catch (err) {
     console.error('❌ Payment error:', err.message);
     res.render('checkout', { error: 'Payment initiation failed. Try again.' });
@@ -148,11 +157,10 @@ app.post('/pay', async (req, res) => {
 });
 
 // ==================== M-PESA CALLBACK ==================== //
-
 app.post('/mpesa/callback', async (req, res) => {
-  const callback = req.body.Body.stkCallback;
+  const callback = req.body.Body?.stkCallback;
 
-  if (callback.ResultCode === 0) {
+  if (callback?.ResultCode === 0) {
     const metadata = callback.CallbackMetadata.Item.reduce((acc, item) => {
       acc[item.Name] = item.Value;
       return acc;
@@ -192,14 +200,13 @@ app.post('/mpesa/callback', async (req, res) => {
 
     console.log('✅ Payment saved:', transaction);
   } else {
-    console.log('❌ STK Push Failed:', callback.ResultDesc);
+    console.log('❌ STK Push Failed:', callback?.ResultDesc);
   }
 
   res.sendStatus(200);
 });
 
 // ==================== ORDERS ==================== //
-
 app.get('/orders', async (req, res) => {
   if (!req.session.userId) return res.redirect('/');
   const page = parseInt(req.query.page) || 1;
@@ -227,17 +234,18 @@ app.get('/receipt/:id', async (req, res) => {
   res.render('receipt', { transaction });
 });
 
-// ==================== MISC ==================== //
-
+// Logout
 app.get('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/'));
 });
 
+// Success Page
 app.get('/success', (req, res) => res.render('success'));
+
+// Error Page
 app.get('/error', (req, res) => res.render('error', { error: 'Something went wrong' }));
 
 // ==================== START SERVER ==================== //
-
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
