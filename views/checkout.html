@@ -4,29 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tanfel Hotel - Checkout</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
+<body style="background-color: wheat;">
   <!-- Loader -->
   <div id="loader" class="loader hidden"></div>
 
   <!-- Page Wrapper -->
   <div id="pageWrapper" class="page-transition">
     <header>
-      <h1>Checkout</h1>
-      <button id="backToMenuBtn" class="btn-back">Back to Menu</button>
-      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+      <h1  class="animation"style="background-color: skyblue;height: ;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;">Checkout</h1>
+      <button  class="animation"style="background-color: skyblue;height: ;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;" id="backToMenuBtn" class="btn-back">Back to Menu</button>
+      <button  class="animation"style="background-color: skyblue;height: ;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
     </header>
 
-    <main>
-      <form id="checkoutForm" action="/pay" method="POST" novalidate>
+    <main  class="animation"style="background-color: skyblue;height: 400px;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;">
+      <form  class="animation"style="background-color: skyblue;height: 400px;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;" id="checkoutForm" action="/pay" method="POST" novalidate>
         <div class="form-group">
           <label for="phone">Phone Number</label>
-          <input
+          <input style="box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;padding: 20px;"
             type="tel"
             id="phone"
             name="phone"
-            placeholder="+254712345678"
+            placeholder="+2547XXXXXXXX input number"
             required
             pattern="^\+2547\d{8}$"
             autocomplete="tel"
@@ -36,7 +36,7 @@
 
         <div class="form-group">
           <label for="cartSummary">Order Summary</label>
-          <textarea
+          <textarea style="box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;padding: 20px;"
             id="cartSummary"
             name="cart"
             readonly
@@ -47,7 +47,7 @@
 
         <div class="form-group">
           <label for="totalAmount">Total Amount (KES)</label>
-          <input
+          <input style="box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 25px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;padding: 20px;"
             type="number"
             id="totalAmount"
             name="total"
@@ -56,7 +56,7 @@
           />
         </div>
 
-        <button type="submit" id="payBtn" class="btn-pay">Pay Now</button>
+        <button  style="background-color: blue;padding: 15px;width: 90px;text-shadow: 0 0 15px green;border: none;border-radius: 40px;color: white;box-shadow: 0 0 15px black;"type="submit" id="payBtn" class="btn-pay">Pay Now</button>
       </form>
 
       <!-- Error message display -->
@@ -65,7 +65,39 @@
       <% } %>
     </main>
   </div>
+  <style>
+  
+  
+@keyframes BackgroundGradient {
+  0%{background-position:0% 50%;}
+  50%{background-position: 100% 50% }
+  100%{background-position: 0% 50%}
 
-  <script src="script.js"></script>
+}
+
+.animation{
+  color: #f2f2f2;
+  background: linear-gradient(45deg, #FCE38A, #f5ad4d, #fd81b5, #f74689, #ad5af3, #8a13ef );
+  background-size: 450% 100%;
+  animation: BackgroundGradient 30s ease infinite;  
+  padding: 20px;
+  margin: 30px;
+  border-radius: 0.5rem;
+}
+</style>
+<script>
+  alert(Thanks 😊 you for visiting our website.);
+  
+</script>
 </body>
-        </html>
+<br>
+<div style="text-align: center;">
+<progress></progress>
+<footer>©2025 All Rights Reserved.Tanfel Hotel </footer>
+</div>
+
+  
+
+  <script src="/js/script.js"></script>
+
+            </html>
