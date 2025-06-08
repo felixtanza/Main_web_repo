@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,35 +7,42 @@
 </head>
 <body>
   <!-- Loader -->
-  <div id="loader" class="loader hidden"></div>
-
-  <!-- Page Wrapper -->
-  <div id="pageWrapper" class="page-transition">
+  <div id="loader" class="loader hidden"></div>  <!-- Page Wrapper -->  <div id="pageWrapper" class="page-transition">
     <header>
-      <h1>Tanfel Hotel Menu</h1>
-      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+      <h1>Menu</h1>
       <button id="logoutBtn" class="btn-logout">Logout</button>
-      <button id="goToCheckoutBtn" class="btn-checkout">Checkout</button>
-    </header>
+      <!-- Dark mode toggle -->
+      <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+    </header><main>
+  <!-- Gallery Section -->
+  <section class="gallery">
+    <h2>Food Gallery</h2>
+    <div class="gallery-container">
+      <!-- Example Gallery Images -->
+      <img src="/images/food1.jpg" alt="Food 1" />
+      <img src="/images/food2.jpg" alt="Food 2" />
+      <img src="/images/food3.jpg" alt="Food 3" />
+      <img src="/images/food4.jpg" alt="Food 4" />
+      <img src="/images/food5.jpg" alt="Food 5" />
+    </div>
+  </section>
 
-    <main>
-      <section id="menuList" class="menu-list">
-        <!-- Menu items will be dynamically rendered here by JS -->
-      </section>
+  <!-- Menu Items Container -->
+  <section id="menuItems" class="menu-items">
+    <h2>Choose from Our 50+ Dishes</h2>
+    <!-- 50 Menu items dynamically added by script.js -->
+  </section>
 
-      <section id="cart" class="cart-section">
-        <h2>Your Cart</h2>
-        <ul id="cartItems" class="cart-items">
-          <!-- Cart items populated dynamically -->
-        </ul>
-        <div id="cartTotal" class="cart-total">
-          Total: KES <span id="totalAmount">0</span>
-        </div>
-        <button id="clearCartBtn" class="btn-clear-cart">Clear Cart</button>
-      </section>
-    </main>
-  </div>
+  <!-- Cart Summary -->
+  <aside id="cart" class="cart-container">
+    <h2>Your Cart</h2>
+    <ul id="cartItems" class="cart-items">
+      <!-- Cart items will be dynamically added here -->
+    </ul>
+    <p id="cartTotal" class="cart-total">Total: KES 0</p>
+    <a href="/checkout" id="checkoutBtn" class="btn-checkout disabled" aria-disabled="true">Proceed to Checkout</a>
+  </aside>
+</main>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  </div>  <script src="script.js"></script></body>
+  </html>
