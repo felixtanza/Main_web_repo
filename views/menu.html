@@ -1,74 +1,240 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tanfel Hotel - Menu</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    @keyframes BackgroundGradient {
+      0%{background-position:0% 50%;}
+      50%{background-position: 100% 50% }
+      100%{background-position: 0% 50%}
+    }
+    .animation {
+      color: #f2f2f2;
+      background: linear-gradient(45deg, #FCE38A, #f5ad4d, #fd81b5, #f74689, #ad5af3, #8a13ef );
+      background-size: 450% 100%;
+      animation: BackgroundGradient 30s ease infinite;  
+      padding: 20px;
+      margin: 30px;
+      border-radius: 0.5rem;
+    }
+    /* Additional styles for your elements */
+    body {
+      background-color: wheat;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background-color: skyblue;
+      box-shadow: 0 0 15px black;
+      border:none;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 30px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 40px;
+      opacity: 0.9;
+      font-weight: bold;
+      font-size: 24px;
+      padding: 15px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 30px;
+    }
+    header h1 {
+      margin: 0 10px;
+      color: white;
+      flex-grow: 1;
+      text-align: left;
+    }
+    #logoutBtn, #darkModeToggle {
+      background-color: blue;
+      padding: 15px;
+      width: 90px;
+      text-shadow: 0 0 15px green;
+      border: none;
+      border-radius: 40px;
+      color: white;
+      box-shadow: 0 0 15px black;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0 10px;
+    }
+    main {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 30px;
+    }
+    section.gallery, aside#cart {
+      background-color: skyblue;
+      box-shadow: 0 0 15px black;
+      border-radius: 40px 5px 5px 40px;
+      opacity: 0.9;
+      padding: 20px;
+      height: 400px;
+      width: 30%;
+      overflow-y: auto;
+    }
+    section.gallery h2, section#menuItems h2, aside#cart h2 {
+      color: white;
+      margin-bottom: 10px;
+    }
+    .gallery-container img {
+      width: 100%;
+      max-width: 150px;
+      margin: 10px;
+      border-radius: 15px;
+      box-shadow: 0 0 8px black;
+      cursor: pointer;
+    }
+    #menuItems {
+      background-color: skyblue;
+      box-shadow: 0 0 15px black;
+      border-radius: 40px 5px 5px 40px;
+      opacity: 0.9;
+      padding: 20px;
+      width: 35%;
+      height: 400px;
+      overflow-y: auto;
+      color: white;
+    }
+    .menu-card {
+      background: linear-gradient(45deg, #FCE38A, #f5ad4d, #fd81b5);
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 0 8px black;
+      text-align: left;
+    }
+    .menu-card h4 {
+      margin: 0 0 6px 0;
+      font-size: 18px;
+    }
+    .menu-card p {
+      margin: 0 0 10px 0;
+      font-weight: bold;
+    }
+    .menu-card button {
+      background-color: blue;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 25px;
+      box-shadow: 0 0 8px black;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+    .cart-items {
+      list-style-type: none;
+      padding: 0;
+      max-height: 250px;
+      overflow-y: auto;
+      color: white;
+      text-align: left;
+    }
+    .cart-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      background: linear-gradient(45deg, #f74689, #ad5af3);
+      border-radius: 12px;
+      padding: 8px 12px;
+      box-shadow: 0 0 5px black;
+    }
+    .cart-row button {
+      background: #ff4c4c;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      padding: 2px 8px;
+      font-weight: bold;
+      box-shadow: 0 0 5px black;
+    }
+    #cartTotal {
+      font-weight: bold;
+      margin-top: 12px;
+      color: white;
+      font-size: 18px;
+      text-align: right;
+    }
+    #checkoutBtn {
+      background-color: blue;
+      padding: 15px;
+      width: 90%;
+      text-shadow: 0 0 15px green;
+      border: none;
+      border-radius: 40px;
+      color: white;
+      box-shadow: 0 0 15px black;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      opacity: 0.9;
+    }
+    #checkoutBtn.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    footer {
+      margin: 20px 30px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+    /* Loader hidden initially */
+    .loader {
+      display: none;
+      color: blue;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body style="background-color: wheat;text-align: center;">
+
   <!-- Loader -->
-  <div id="loader" class="loader hidden"></div>  <!-- Page Wrapper -->  <div id="pageWrapper" class="page-transition">
-    <header class="animation"style="background-color: skyblue;height: ;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;">
+  <div id="loader" class="loader">Processing...</div>
+
+  <!-- Page Wrapper -->
+  <div id="pageWrapper" class="page-transition">
+
+    <header class="animation" style="box-shadow: 0 0 15px black; opacity: 0.9; font-weight: bolder; font-size: 24px;">
       <h1>Menu</h1>
-      <button  style="background-color: blue;padding: 15px;width: 90px;text-shadow: 0 0 15px green;border: none;border-radius: 40px;color: white;box-shadow: 0 0 15px black;"id="logoutBtn" class="btn-logout">Logout</button>
-      <!-- Dark mode toggle -->
-      <button class="animation"style="background-color: skyblue;height: ;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
-    </header><main>
-  <!-- Gallery Section -->
-  <section  class="animation"style="background-color: skyblue;height: 400px;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;"class="gallery">
-    <h2>Food Gallery</h2>
-    <div class="gallery-container">
-      <!-- Example Gallery Images -->
-      <img src="/images/food1.jpg" alt="Food 1" />
-      <img src="/images/food2.jpg" alt="Food 2" />
-      <img src="/images/food3.jpg" alt="Food 3" />
-      <img src="/images/food4.jpg" alt="Food 4" />
-      <img src="/images/food5.jpg" alt="Food 5" />
-    </div>
-  </section>
+      <button id="logoutBtn" class="btn-logout" style="background-color: blue;padding: 15px;width: 90px;text-shadow: 0 0 15px green;border: none;border-radius: 40px;color: white;box-shadow: 0 0 15px black;cursor: pointer;">Logout</button>
+      <button id="darkModeToggle" aria-label="Toggle dark mode" style="background-color: skyblue; box-shadow: 0 0 15px black; border:none; border-radius: 40px; opacity: 0.9; font-weight: bold; font-size: 22px; cursor: pointer;">🌙</button>
+    </header>
 
-  <!-- Menu Items Container -->
-  <section id="menuItems" class="menu-items">
-    <h2>Choose from Our 50+ Dishes</h2>
-    <!-- 50 Menu items dynamically added by script.js -->
-  </section>
+    <main style="display:flex; justify-content: space-around; margin: 20px 30px;">
 
-  <!-- Cart Summary -->
-  <aside class="animation"style="background-color: skyblue;height: 400px;box-shadow: 0 0 15px black;border:none;border-bottom-right-radius: 5px;border-top-right-radius: 30px;border-top-left-radius: 5px;border-bottom-left-radius: 40px;opacity: 50px;font-size: boulder;" id="cart" class="cart-container">
-    <h2>Your Cart</h2>
-    <ul id="cartItems" class="cart-items">
-      <!-- Cart items will be dynamically added here -->
-    </ul>
-    <p id="cartTotal" class="cart-total">Total: KES 0</p>
-    <a style="background-color: blue;padding: 15px;width: 90px;text-shadow: 0 0 15px green;border: none;border-radius: 40px;color: white;box-shadow: 0 0 15px black;" href="/checkout" id="checkoutBtn" class="btn-checkout disabled" aria-disabled="true">Proceed to Checkout</a>
-  </aside>
-</main>
+      <!-- Gallery Section -->
+      <section class="animation gallery" style="background-color: skyblue; height: 400px; box-shadow: 0 0 15px black; border-radius: 40px 5px 5px 40px; opacity: 0.9; padding: 20px; width: 30%; overflow-y: auto;">
+        <h2>Food Gallery</h2>
+        <div class="gallery-container">
+          <img src="/images/food1.jpg" alt="Food 1" />
+          <img src="/images/food2.jpg" alt="Food 2" />
+          <img src="/images/food3.jpg" alt="Food 3" />
+          <img src="/images/food4.jpg" alt="Food 4" />
+          <img src="/images/food5.jpg" alt="Food 5" />
+        </div>
+      </section>
 
-  </div>  <script src="script.js"></script></body>
-  
-    <style>
-    
-    
-@keyframes BackgroundGradient {
-  0%{background-position:0% 50%;}
-  50%{background-position: 100% 50% }
-  100%{background-position: 0% 50%}
+      <!-- Menu Items Container -->
+      <section id="menuItems" class="menu-items animation" style="background-color: skyblue; height: 400px; box-shadow: 0 0 15px black; border-radius: 40px 5px 5px 40px; opacity: 0.9; padding: 20px; width: 35%; overflow-y: auto; color: white;">
+        <h2>Choose from Our 50+ Dishes</h2>
+        <!-- Menu cards will be injected here by script.js -->
+      </section>
+      
+      <script>
+        src="/script.js"
+      </script>
 
-}
-
-.animation{
-  color: #f2f2f2;
-  background: linear-gradient(45deg, #FCE38A, #f5ad4d, #fd81b5, #f74689, #ad5af3, #8a13ef );
-  background-size: 450% 100%;
-  animation: BackgroundGradient 30s ease infinite;  
-  padding: 20px;
-  margin: 30px;
-  border-radius: 0.5rem;
-}
-    
-    
-  </style>
-  
-  <progress></progress>
-<footer>©2025 All Rights Reserved.Tanfel Hotel </footer>
-  </html>
+      <!-- Cart Summary -->
+      <aside id="cart" class="animation" style="background-color: skyblue; height: 400px; box-shadow: 0 0 15px black; border-radius: 40px 5px 5px 40px; opacity: 0.9; padding: 20px; width: 30%; color: white; overflow-y: auto
